@@ -1,32 +1,22 @@
 import express from "express";
+import movieRoutes from "./routes/movies.route.js"; 
+console.log("movieRoutes value:", movieRoutes);  // <- note the .js
 
 const app = express();
-const PORT = 6969;
+const PORT = 6970;
 
-app.get('/', (req, res) => {
-    res.json({msg: "hello students"});
+// Middleware
+app.use(express.json());
+
+// Test root route
+app.get("/", (req, res) => {
+  res.json({ msg: "hello students!!" });
 });
 
-// CRUD functionality of movies
-//R - for reading
-app.get('/movies',()=>{
+// Movies routes
+app.use("/movies", movieRoutes);
+console.log("Movies router mounted!");
 
-})
-//C - for creating movies
-app.post('/movies',()=>{
-
-})
-
-// U - for updating movies
-app.put('/movies/:id',()=>{
-
-})
-
-// D - for deleting movies
-app.delete('/movies/:id',()=>{
-
-})
 app.listen(PORT, () => {
-    console.log(`the server is running at http://localhost:${PORT}`);
+  console.log(`The server is running at http://localhost:${PORT}`);
 });
-
