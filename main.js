@@ -1,10 +1,11 @@
 import express from "express";
 import movieRoutes from "./routes/movies.route.js"; 
-console.log("movieRoutes value:", movieRoutes);  // <- note the .js
+import connectDB from "./lib/db.js";
 
 const app = express();
 const PORT = 6970;
-
+//connect DB
+connectDB();
 // Middleware
 app.use(express.json());
 
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 
 // Movies routes
 app.use("/movies", movieRoutes);
-console.log("Movies router mounted!");
+
 
 app.listen(PORT, () => {
   console.log(`The server is running at http://localhost:${PORT}`);
