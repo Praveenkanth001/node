@@ -3,11 +3,12 @@ import movieRoutes from "./routes/movies.route.js";
 import connectDB from "./lib/db.js";
 
 const app = express();
-const PORT = 6970;
+const PORT = 6969;
 //connect DB
 connectDB();
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Test root route
 app.get("/", (req, res) => {
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 
 // Movies routes
 app.use("/movies", movieRoutes);
+
 
 
 app.listen(PORT, () => {
