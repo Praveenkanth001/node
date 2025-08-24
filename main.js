@@ -4,22 +4,22 @@ import connectDB from "./lib/db.js";
 
 const app = express();
 const PORT = 6969;
-//connect DB
-connectDB();
-// Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Test root route
+// Routes
 app.get("/", (req, res) => {
   res.json({ msg: "hello students!!" });
 });
-
-// Movies routes
 app.use("/movies", movieRoutes);
 
+// ✅ Connect DB first, then start server
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+};
 
-
-app.listen(PORT, () => {
-  console.log(`The server is running at http://localhost:${PORT}`);
-});
+startServer();
